@@ -1,0 +1,6 @@
+server:
+  servlet:
+    context-path: /user
+logging:
+  level:
+    root: info

@@ -1,0 +1,31 @@
+{
+  "name": "aws-test-automation-devops-cdk",
+  "version": "0.1.0",
+  "bin": {
+    "aws-test-automation-devops-cdk": "bin/aws-test-automation-devops-cdk.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.5.0",
+    "@types/node": "10.17.27",
+    "@types/prettier": "2.6.0",
+    "aws-cdk": "2.25.0",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.4",
+    "ts-node": "^10.7.0",
+    "typescript": "~3.9.7"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "2.25.0",
+    "cdk": "^2.27.0",
+    "cdk-nag": "^2.14.22",
+    "constructs": "^10.0.0",
+    "path": "^0.12.7",
+    "source-map-support": "^0.5.21"
+  }
+}

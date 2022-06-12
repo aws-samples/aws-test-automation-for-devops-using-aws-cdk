@@ -1,0 +1,27 @@
+version: 0.2
+phases:
+    install:
+        runtime-versions:
+            nodejs: 12
+        commands:
+            - n 16
+            - "npm install yarn -g"
+            - "yarn config set ignore-engines true"
+    pre_build:
+        commands:
+            - echo -e "\nSTAGE="$build_stage"" >> .env
+            - echo -e "\nGENERATE_SOURCEMAP=false" >> .env
+            - cat .env
+            - yarn
+    build:
+        commands:
+            - yarn build
+    post_build:
+        commands:
+            - cp buildspec_deploy.yml build/
+            - cd build
+            - ls           
+artifacts:
+    files:
+        - "**/*"
+    base-directory: build

@@ -1,0 +1,34 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 191580250896.dkr.ecr.ap-southeast-1.amazonaws.com
+      - REPOSITORY_URI=191580250896.dkr.ecr.ap-southeast-1.amazonaws.com/demogo-user
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+  build:
+    commands:
+      - echo Build started on `date`
+      - chmod +x ./gradlew
+      - ./gradlew test --stacktrace
+      - ./gradlew bootJar
+      - echo Building the Docker image...
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - mkdir /codebuild/output/tmp/$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image definitions file...
+      - printf '[{"name":"user-app","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+artifacts:
+  files:
+      - imagedefinitions.json
+      - appspec.yaml
+      - taskdef.json

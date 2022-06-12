@@ -1,0 +1,104 @@
+{
+	"info": {
+		"_postman_id": "398a57e6-4322-42a0-b65f-b2e94eae77ba",
+		"name": "Demogo-User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "[Get]HealthCheck",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"responseBody = \" + responseBody] = true;",
+							"",
+							"pm.test(\"Status code is 200 && Result is 'Success'\", function(){",
+							"    pm.response.to.have.statusCode(\"200\")",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.result).to.equal(\"Success\")",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://[[ALB_URL]].[[REGION]]:8080/user/health-check",
+					"protocol": "http",
+					"host": [
+						"[[ALB_URL]]",
+						"[[REGION]]",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"health-check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Get]Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"responseBody = \" + responseBody] = true;",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function(){",
+							"    pm.response.to.have.statusCode(\"200\")    ",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"There are 7 users.\", function(){",
+							"    pm.expect(jsonData.length).to.be.lte(7)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://[[ALB_URL]].[[REGION]].elb.amazonaws.com:8080/user/users",
+					"protocol": "http",
+					"host": [
+						"[[ALB_URL]]",
+						"[[REGION]]",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

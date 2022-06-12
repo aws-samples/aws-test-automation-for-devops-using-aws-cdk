@@ -1,0 +1,36 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "user-app",
+      "image": "191580250896.dkr.ecr.ap-southeast-1.amazonaws.com/demogo-user",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "dockerLabels": {
+        "name": "user-app"
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "loggroup-ecs-demogo-user",
+          "awslogs-region": "ap-southeast-1",
+          "awslogs-create-group": "true",
+          "awslogs-stream-prefix": "ecs/demogo-user"
+        }
+      }
+    }
+  ],
+  "taskRoleArn": "arn:aws:iam::191580250896:role/devopsRole",
+  "executionRoleArn": "arn:aws:iam::191580250896:role/devopsRole",
+  "family": "AwsTestAutomationDevopsCdkStackuserTaskDefD258CF61",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "512",
+  "memory": "1024"
+}
