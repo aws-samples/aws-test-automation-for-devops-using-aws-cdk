@@ -117,7 +117,7 @@ After the CDK deployment , some environment modifications are required.
 
 3. Change the TEST URL
     ![edit-test-ui](docs/images/2.3.edit-test-ui.png)
-    * Select 1test-ui-devicefarm.js1 in the same repository. 
+    * Select `test-ui-devicefarm.js` in the same repository. 
     * Replace the generated Device Farm ARN and TEST_URL with `[[DEVICE_FARM_ARN]]`, `[[TEST_URL]]`.
 
 ### Appendix. CDK Commands
