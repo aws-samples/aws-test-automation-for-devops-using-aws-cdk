@@ -33,7 +33,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://[[ALB_URL]].[[REGION]]:8080/user/health-check",
+					"raw": "http://[[ALB_URL]].[[REGION]].elb.amazonaws.com:8080/user/health-check",
 					"protocol": "http",
 					"host": [
 						"[[ALB_URL]]",
