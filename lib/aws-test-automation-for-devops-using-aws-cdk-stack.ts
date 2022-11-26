@@ -242,7 +242,7 @@ export class AwsTestAutomationForDevopsUsingAwsCdkStack extends Stack {
     //Frontend
     const appFrontendUserRepo = new codecommit.Repository(this, 'appFrontendUserRepo',{
       repositoryName: 'codecommit-demogo-frontend-user',
-      code: codecommit.Code.fromDirectory(path.join(__dirname, '../code/app/demogo-fe-user/'), 'master')
+      code: codecommit.Code.fromZipFile(path.join(__dirname, '../code/app/fe.zip'), 'master')
     });
 
     const userFrontendSourceOutput = new codepipeline.Artifact();
